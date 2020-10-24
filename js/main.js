@@ -1,12 +1,11 @@
-//import * as posenet from '../node_modules/@tensorflow-models/posenet';
-//import * as drawKeypoints from './util.js';
+//import { assert } from "@tensorflow/tfjs-core/dist/util";
 
-
-let imgElement = document.getElementById('video');
 const videoHeight = 480;
 const videoWidth = 640;
-const color = 'black';
+const goodPosturePoints = [];
+let color = 'green';
 var net = getNet();
+
 //Load in the neural network
 async function getNet() {
     const net = await posenet.load({architecture: 'MobileNetV1',
@@ -21,9 +20,6 @@ async function getNet() {
 async function main(net) {
     net = await net;
     let vidElement = await getVideo();
-    let pose = await net.estimatePoses(vidElement, {decodeMethods: "single-person"});
-    pose[0].keypoints.length = 7;
-    console.log(pose);
     detectPose(vidElement, net);
 }
 
@@ -33,13 +29,13 @@ function detectPose(video, net) {
     const ctx = canvas.getContext('2d');
 
     const flipPoseHorizontal = true;
-
     canvas.width = videoWidth;
     canvas.height = videoHeight;
+    let counter = 0;
+    let curPoints = [null, null, null, null, null, null, null];
     async function detectFrame() {
-        net.dispose();
-        net = await getNet();
         let poses = [];
+        counter++;
         const pose = await net.estimatePoses(video, {decodingMethod: 'single-person'});
         pose[0].keypoints.length = 7;
         poses = poses.concat(pose);
@@ -55,10 +51,32 @@ function detectPose(video, net) {
             }
             
         });
+        const {keypoints} = pose[0];
+        for(let i = 0; i < keypoints.length; i++) {
+            curPoints[i] = keypoints[i].position;
+        }
+        getGoodPosture(curPoints);
         requestAnimationFrame(detectFrame);
     }
     detectFrame();
 }
+
+function getGoodPosture(curPoints) {
+    for(let i = 0; i < curPoints.length; i++) {
+        if(goodPosturePoints.length < 7) {
+            goodPosturePoints.push(curPoints[i]);
+        } else {
+            if(Math.abs(goodPosturePoints[i].x - curPoints[i].x) > 150 || Math.abs(goodPosturePoints[i].y - curPoints[i].y) > 75) {
+                color = 'red';
+                break;
+            } else {
+                color = 'green';
+            }
+        }
+    }
+    //assert(goodPosturePoints.length == 7);
+}
+
 
 async function getVideo() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -97,6 +115,6 @@ export function drawPoint(ctx, y, x, r, color) {
     ctx.arc(x, y, r, 0, 2 * Math.PI);
     ctx.fillStyle = color;
     ctx.fill();
-  }
+}
 
 main(net);
