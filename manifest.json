@@ -1,0 +1,15 @@
+  {
+    "name": "PostSure",
+    "version": "1.0",
+    "description": "Analyze, monitor, and maintain your posture — all throughout the day.",
+    "manifest_version": 2,
+    "icons": {
+      "256": "images/chair256.png"
+    },
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "256": "images/chair256.png"
+      }
+    }
+  }

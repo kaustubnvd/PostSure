@@ -1,0 +1,14 @@
+{
+  "name": "postsure",
+  "version": "1.0.0",
+  "description": " Analyze, monitor, and maintain your posture — all throughout the day.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sids Kids",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.12.0"
+  }
+}
