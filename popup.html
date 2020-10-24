@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PostSure</title>
-</head>
-<body>
-  <img src="/images/posture_guide.png" alt="posture_guide">
-  <!-- Popup file will have the posture realtime feeback (either checkmark or speedometer)-->
-  <!-- Link to the proper posture page (static)-->
-  <!-- End session button that shows the overall analysis in the popup tab at the end-->
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostSure</title>
+    <link rel="stylesheet" href="./popup.css">
+  </head>
+  <body>
+    <p align="center">
+      <img src="images/chair256.png" alt="PostSure" width="72" height="72" />
+    </p>
+
+    <h1 align="center">PostSure</h3>
+
+    <p align="center">
+      Analyze, monitor, and maintain your posture — all throughout the day.
+    </p>
+    <h2 align="center">
+      Be sure to allow camera permissions in options beforehand.
+    </h2>
+    <video id="video" width="640" height="300" autoplay></video>
+    <div class="container">
+      <button>Calibrate</button>
+      <button id="btn">Bad Posture</button>
+    </div>
+    <!-- Popup file will have the posture realtime feeback (either checkmark or speedometer)-->
+    <!-- Link to the proper posture page (static)-->
+    <!-- End session button that shows the overall analysis in the popup tab at the end-->
+    <script src="video.js"></script>
+  </body>
 </html>
