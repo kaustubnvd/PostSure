@@ -14,6 +14,7 @@ let db = firebase.firestore();
 let emailInput = document.getElementById("email");
 let button = document.getElementById("email-btn");
 
+
 let email = '' // dynamic in future
 
 // error checking needed to make sure it is a valid email
@@ -44,10 +45,15 @@ emailInput.addEventListener('keypress', (e) => {
 
 // general update for user param for data
 async function newUser(email) {
-    await db.collection("users").doc(`${email}`).set({
-        "lifetime": [],
-        "lastSession": []
-    });
+    let usersRef = await db.collection('users').doc(`${email}`)
+    await usersRef.get()
+    .then((docSnapshot) => {
+    if (!docSnapshot.exists)
+        usersRef.set({
+            lifetime: [],
+            lastSession: []
+        });
+    }); 
 }
 
 
@@ -58,14 +64,12 @@ function putCalibration(data) {
 }
 
 async function pushStats(currData, total) {
+    
     await db.collection("users").doc(`${email}`).update({
         "lifetime": firebase.firestore.FieldValue.arrayUnion(total),
     });
-    await db.collection("users").doc(`${email}`).set({
+    await db.collection("users").doc(`${email}`).update({
         "lastSession": currData
-    },
-    { 
-        merge: true 
     });
 }
 

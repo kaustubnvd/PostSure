@@ -1,5 +1,5 @@
-const videoHeight = 240;
-const videoWidth = 320;
+const videoHeight = 480; //360
+const videoWidth = 640; //480
 const calibrate = document.getElementById('calibrate');
 var btn = document.getElementById('btn');
 const loader = document.querySelector('.loader');
@@ -107,11 +107,13 @@ function handleFrame(pose, counter, curPoints) {
         }
       } else {
         //Handle poses normally -> reset curPoints and check
-        if (counter % 50 == 0) {
-          percentages.push(localPostures[0]/(localPostures[0] + localPostures[1]));
+        if (counter % 50 == 0 && (localPostures[0] + localPostures[1]) !== 0) {
+          let percentage = 100*(localPostures[0]/(localPostures[0] + localPostures[1]));
+          percentages.push(percentage);
           globalPostures[0] += localPostures[0];
           globalPostures[1] += localPostures[1];
           localPostures = [0, 0];
+          console.log(`Percentages: ${percentages}`);
         }
         getGoodPosture(keypoints.map(elem => elem.position));
       }
@@ -125,8 +127,8 @@ function getGoodPosture(curPoints) {
   let expShoulderDiff = [Math.abs(initPosturePoints[5].x - initPosturePoints[6].x), Math.abs(initPosturePoints[5].y - initPosturePoints[6].y)];
   let curShoulderDiff = [Math.abs(curPoints[5].x - curPoints[6].x), Math.abs(curPoints[5].y - curPoints[6].y)];
   for (let i = 0; i < curPoints.length; i++) {
-    if (Math.abs(initPosturePoints[i].x - curPoints[i].x) > 175 || Math.abs(initPosturePoints[i].y - curPoints[i].y) > 100 || 
-        Math.abs(expShoulderDiff[0] - curShoulderDiff[0]) > 40 || Math.abs(expShoulderDiff[1] - curShoulderDiff[1]) > 40) {
+    if (Math.abs(initPosturePoints[i].x - curPoints[i].x) > 175 || Math.abs(initPosturePoints[i].y - curPoints[i].y) > 50 || 
+        Math.abs(expShoulderDiff[0] - curShoulderDiff[0]) > 40  || Math.abs(expShoulderDiff[1] - curShoulderDiff[1]) > 20) {
       if(color !== 'red') {
         color = 'red';
         btn.click();

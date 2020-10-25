@@ -57,11 +57,19 @@
       <button id="btn">Bad Posture</button>
     </div>
     </div>
+    <div class = "center hidden" id = "stats-div">
+      <button id = "stats-btn">Statistics</button>
+    </div>
     <div class="center hidden" id="min">
       <button id="size">Minimize</button>
     </div>
-    <div id="char-box" class="" style="height:100%; width: 100%;">
-      <canvas id="myChart" width="100" height="50"></canvas>
+    <div class = "stats hidden" id = "graphs" style = "margin-top: 1.5em;">
+      <div id="cur-box" class="" style="height:200px; width: 400px;">
+        <canvas id="currChart" width="100" height="50"></canvas>
+      </div>
+      <div id="char-box" class="" style="height:200px; width: 400px;">
+        <canvas id="lifeChart" width="100" height="50"></canvas>
+      </div>
     </div>
 
     <!-- Popup file will have the posture realtime feeback (either checkmark or speedometer)-->
@@ -70,7 +78,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script src="js/stats.js"></script>
     <script src="/js/main.js"></script>
     <script src="video.js"></script>
 <!-- 
