@@ -115,3 +115,11 @@ button:active {
 .error {
   color: red;
 }
+.options {
+  font-family: 'Montserrat';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
