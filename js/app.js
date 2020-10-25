@@ -15,25 +15,48 @@ let emailInput = document.getElementById("email");
 let button = document.getElementById("email-btn");
 
 let email = '' // dynamic in future
-let currUser;
 
 // error checking needed to make sure it is a valid email
 
 button.addEventListener('click', () => {
     email = emailInput.value;
-    currUser = newUser(email);
+    newUser(email);
+    pushStats([1, 2, 3, 4, 5], 10);
 })
 emailInput.addEventListener('keypress', (e) => {
     if(e.key === 'Enter') {
         email = emailInput.value;
-        currUser = newUser(email); 
+        newUser(email); 
+        pushStats([1, 2, 3, 4, 5], 10);
     }
 })
 
 
 // general update for user param for data
-function newUser(email) {
-    return db.collection("users").doc(`${email}`).set({});
+async function newUser(email) {
+    await db.collection("users").doc(`${email}`).set({
+        "lifetime": [],
+        "lastSession": []
+    });
+}
+
+
+// after a certain amount we add data to DB
+function putCalibration(data) {
+    average();
+    currUser;
+}
+
+async function pushStats(currData, total) {
+    await db.collection("users").doc(`${email}`).update({
+        "lifetime": firebase.firestore.FieldValue.arrayUnion(total),
+    });
+    await db.collection("users").doc(`${email}`).set({
+        "lastSession": currData
+    },
+    { 
+        merge: true 
+    });
 }
 
 
