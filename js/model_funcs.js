@@ -1,3 +1,4 @@
+//Global Constants for DOM elements and sending data
 const videoHeight = 480; //360
 const videoWidth = 640; //480
 const calibrate = document.getElementById('calibrate');
@@ -5,6 +6,7 @@ var btn = document.getElementById('btn');
 const loader = document.querySelector('.loader');
 const popup = document.querySelector('.popup');
 const minmax = document.getElementById('size');
+const statsBtn = document.getElementById('stats-btn');
 const calibratedStatus = document.querySelector('.status');
 const initPosturePoints = [];
 let percentages = [];
@@ -14,6 +16,8 @@ let globalPostures = [0, 0]; //
 let color = 'green';
 let isCalibrated = false;
 
+
+//Event Listeners for buttons
 calibrate.addEventListener('click', (event) => {
   isCalibrated = true;
   calibratedStatus.innerText = 'Calibrating...';
@@ -38,6 +42,7 @@ btn.addEventListener('click', function () {
 
 minmax.addEventListener('click', (e) => {
     popup.classList.toggle('hidden');
+    statsBtn.classList.toggle('hidden');
     minmax.innerText = minmax.innerText === 'Minimize' ? 'Maximize' : 'Minimize';
 });
 
@@ -83,6 +88,7 @@ function detectPose(video, net) {
   detectFrame();
 }
 
+//Handle a single frame
 function handleFrame(pose, counter, curPoints) {
   if(isCalibrated) {
     //User has requested to calibrate -> parse pose values
@@ -123,6 +129,7 @@ function handleFrame(pose, counter, curPoints) {
   return counter;
 }
 
+//Check for good posture
 function getGoodPosture(curPoints) {
   let expShoulderDiff = [Math.abs(initPosturePoints[5].x - initPosturePoints[6].x), Math.abs(initPosturePoints[5].y - initPosturePoints[6].y)];
   let curShoulderDiff = [Math.abs(curPoints[5].x - curPoints[6].x), Math.abs(curPoints[5].y - curPoints[6].y)];
@@ -142,6 +149,7 @@ function getGoodPosture(curPoints) {
   }
 }
 
+//get video element
 async function getVideo() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     throw new Error(
@@ -166,6 +174,7 @@ async function getVideo() {
   return loadedVideo;
 }
 
+//draw points
 function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
   for (let i = 0; i < keypoints.length; i++) {
     const keypoint = keypoints[i];

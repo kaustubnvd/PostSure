@@ -1,5 +1,5 @@
 let firebaseConfig = {
-    apiKey: "AIzaSyC1y14eBUEzN7QlmQ3Qw81J8M2H2aUWvOk",
+    apiKey: 'AIzaSyC1y14eBUEzN7QlmQ3Qw81J8M2H2aUWvOk',
     authDomain: "postsure-db141.firebaseapp.com",
     databaseURL: "https://postsure-db141.firebaseio.com",
     projectId: "postsure-db141",
@@ -55,7 +55,6 @@ async function newUser(email) {
         });
     }); 
 }
-
 
 // after a certain amount we add data to DB
 function putCalibration(data) {
