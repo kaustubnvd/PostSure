@@ -18,16 +18,26 @@ let email = '' // dynamic in future
 
 // error checking needed to make sure it is a valid email
 
+let errorMsg = document.getElementById('email-error');
+
 button.addEventListener('click', () => {
     email = emailInput.value;
-    newUser(email);
-    pushStats([1, 2, 3, 4, 5], 10);
+    // TODO tom
+    //    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
+    if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        newUser(email);
+        errorMsg.classList.add('hidden');
+        main(net);
+    } else {
+        // show the error message 
+        errorMsg.classList.remove('hidden');
+        console.log("error occured");
+    }
 })
 emailInput.addEventListener('keypress', (e) => {
     if(e.key === 'Enter') {
         email = emailInput.value;
         newUser(email); 
-        pushStats([1, 2, 3, 4, 5], 10);
     }
 })
 

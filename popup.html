@@ -7,7 +7,31 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="popup">
+    <div class="sign-up ">
+      <div class="center">
+        <h1 class="title">PostSure</h1>
+      </div>
+      <div class="center">
+        <input type="email" id="email" placeholder="Email Address">
+        <small id="email-error" class="error hidden">Please enter a valid email</small>
+        <button id="email-btn">Next</button>
+      </div>
+      <div class="center">
+        <h3 class="title-little">Before you start make sure your:</h3>
+        <ol class="list-text">
+          <li>Shoulders are relaxed</li>
+          <li>Back is straight</li>
+          <li>Eyes are level with the screen</li>
+        </ol>
+      </div>
+      <div class="center">
+        <img src="images/posture_guide.png" alt="Posture Guide" id="img-resize" width="72" height="72">
+      </div>
+    </div>
+
+
+    
+    <div class="popup hidden" id="video-mod">
     <p align="center">
       <img src="images/chair256.png" alt="PostSure" width="72" height="72" />
     </p>
@@ -33,10 +57,10 @@
       <button id="btn">Bad Posture</button>
     </div>
     </div>
-    <div class="center">
+    <div class="center hidden" id="min">
       <button id="size">Minimize</button>
     </div>
-    <div id="char-box" style="height:25%; width: 50%;">
+    <div id="char-box" class="" style="height:100%; width: 100%;">
       <canvas id="myChart" width="100" height="50"></canvas>
     </div>
 
@@ -53,16 +77,16 @@
     <input type="email" id="email">
     <button id="email-btn">Submit</button> -->
   
-    <script src="/js/app.js"></script>
+    <!-- <script src="/js/app.js"></script> -->
     <!-- Popup file will have the posture realtime feeback (either checkmark or speedometer)-->
     <!-- Link to the proper posture page (static)-->
     <!-- End session button that shows the overall analysis in the popup tab at the end-->
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
   
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
-    <script src="js/app.js"></script> -->
+    <script src="js/app.js"></script>
   </body>
 
 </html>

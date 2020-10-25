@@ -1,5 +1,5 @@
-const videoHeight = 480;
-const videoWidth = 640;
+const videoHeight = 240;
+const videoWidth = 320;
 const calibrate = document.getElementById('calibrate');
 var btn = document.getElementById('btn');
 const loader = document.querySelector('.loader');
@@ -171,7 +171,7 @@ function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
       continue;
     }
     const { x, y } = keypoint.position;
-    drawPoint(ctx, y * scale, x * scale, 10, color);
+    drawPoint(ctx, y * scale, x * scale, 7, color); 
   }
 }
 
