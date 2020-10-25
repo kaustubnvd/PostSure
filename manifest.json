@@ -27,5 +27,6 @@
         "256": "images/chair256.png"
       }
     },
+    "content_security_policy":"script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net/npm/@tensorflow/tfjs https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet; object-src 'self'",
     "options_page": "options.html"
   }

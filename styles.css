@@ -1,7 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  margin-top: 1em;
+  font-family: 'Montserrat';
+  font-size: 1rem;
+  background-color: #0099ff;
+  color: #fff;
+  padding: 0.3em 2em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 #video{
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg); /* Firefox */
+    display: none;
+}
+
+p {
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #0182d8;
+}
+
+button:active {
+  background-color: #0663a1;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.options-icon {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #output {
@@ -9,3 +65,12 @@
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg); /* Firefox */
 }
+
+#btn {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+

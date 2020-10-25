@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PostSure</title>
-    <link rel="stylesheet" href="./popup.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <div class="popup">
     <p align="center">
       <img src="images/chair256.png" alt="PostSure" width="72" height="72" />
     </p>
@@ -20,17 +21,31 @@
       Be sure to allow camera permissions in options beforehand.
     </h2>
     <video id="video" width="640" height="300" autoplay></video>
-    <div class="container">
-      <button>Calibrate</button>
+    <div class="center">
+      <div class="loader"></div>
+    </div>
+    <canvas id="output"></canvas>
+    <div class="center">
+      <h2 class="status">❌ Not Calibrated</h2>
+    </div>
+    <div class="center">
+      <button id="calibrate">Calibrate</button>
       <button id="btn">Bad Posture</button>
+    </div>
+    </div>
+    <div class="center">
+      <button id="size">Minimize</button>
     </div>
     <!-- Popup file will have the posture realtime feeback (either checkmark or speedometer)-->
     <!-- Link to the proper posture page (static)-->
     <!-- End session button that shows the overall analysis in the popup tab at the end-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    <script src="/js/main.js"></script>
     <script src="video.js"></script>
-
+<!-- 
     <input type="email" id="email">
-    <button id="email-btn">Submit</button>
+    <button id="email-btn">Submit</button> -->
   
     <!-- <script src="/js/app.js"></script> -->
     <!-- Popup file will have the posture realtime feeback (either checkmark or speedometer)-->
@@ -39,8 +54,9 @@
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
   
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/app.js"></script> -->
   </body>
+
 </html>
