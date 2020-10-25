@@ -134,7 +134,7 @@ function getGoodPosture(curPoints) {
   let expShoulderDiff = [Math.abs(initPosturePoints[5].x - initPosturePoints[6].x), Math.abs(initPosturePoints[5].y - initPosturePoints[6].y)];
   let curShoulderDiff = [Math.abs(curPoints[5].x - curPoints[6].x), Math.abs(curPoints[5].y - curPoints[6].y)];
   for (let i = 0; i < curPoints.length; i++) {
-    if (Math.abs(initPosturePoints[i].x - curPoints[i].x) > 175 || Math.abs(initPosturePoints[i].y - curPoints[i].y) > 50 || 
+    if (Math.abs(initPosturePoints[i].x - curPoints[i].x) > 100 || Math.abs(initPosturePoints[i].y - curPoints[i].y) > 50 || 
         Math.abs(expShoulderDiff[0] - curShoulderDiff[0]) > 40  || Math.abs(expShoulderDiff[1] - curShoulderDiff[1]) > 20) {
       if(color !== 'red') {
         color = 'red';
