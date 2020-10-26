@@ -31,4 +31,12 @@ Our Google Chrome extension analyzes a person’s posture during a computer sess
 <h3>What's next for PostSure</h3>
 <p>We wish to extend PostSure to be able to provide more detailed statistics about the user’s sitting posture during a session and we plan to create a more personalized interface where users can customize what statistics they wish to view. We would also like to ensure the posture is fixed after the notification by either blocking the screen until the posture is fixed or preventing the user from continuing to work.</p>
 
+<h3>Contributors</h3>
+    <p><ul>
+    <li>Soham Patel</li>
+    <li>Kaustub Navalady</li>
+    <li>Shikhar Gupta</li>
+    <li>Suket Shah</li>
+    <li>Sanchith Shanmuga</li>
+    </ul></p>
 
