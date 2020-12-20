@@ -1,20 +1,23 @@
+import * as posenet from '@tensorflow-models/posenet';
+import '@tensorflow/tfjs';
+
 //Global Constants for DOM elements and sending data
 const videoHeight = 480; //360
 const videoWidth = 640; //480
-const calibrate = document.getElementById('calibrate');
-var btn = document.getElementById('btn');
-const loader = document.querySelector('.loader');
-const popup = document.querySelector('.popup');
-const minmax = document.getElementById('size');
-const statsBtn = document.getElementById('stats-btn');
-const calibratedStatus = document.querySelector('.status');
-const initPosturePoints = [];
-let percentages = [];
-let localPostures = [0, 0]; //goodPosture is index 0, badPosture is index 1
-let globalPostures = [0, 0]; //
 
-let color = 'green';
+var notificationBtn = document.getElementById('notification-btn');
+const loader = document.querySelector('.loader');
+
+const calibrate = document.getElementById('calibrate');
+const calibratedStatus = document.querySelector('.status');
 let isCalibrated = false;
+
+const initPosturePoints = [];
+export let percentages = [];
+let localPostures = [0, 0]; //goodPosture is index 0, badPosture is index 1
+export let globalPostures = [0, 0]; //
+let color = 'green';
+
 
 
 //Event Listeners for buttons
@@ -23,7 +26,7 @@ calibrate.addEventListener('click', (event) => {
   calibratedStatus.innerText = 'Calibrating...';
 });
 
-btn.addEventListener('click', function () {
+notificationBtn.addEventListener('click', function () {
   chrome.notifications.create(
     'badPosture',
     {
@@ -40,14 +43,8 @@ btn.addEventListener('click', function () {
   );
 });
 
-minmax.addEventListener('click', (e) => {
-    popup.classList.toggle('hidden');
-    statsBtn.classList.toggle('hidden');
-    minmax.innerText = minmax.innerText === 'Minimize' ? 'Maximize' : 'Minimize';
-});
-
 //Load in the neural network
-async function getNet() {
+export async function getNet() {
   const net = await posenet.load({
     architecture: 'MobileNetV1',
     outputStride: 16,
@@ -59,7 +56,7 @@ async function getNet() {
 }
 
 //util function from posenet repo -> removed gui/extraneous checks
-function detectPose(video, net) {
+export function detectPose(video, net) {
   const canvas = document.getElementById('output');
   const ctx = canvas.getContext('2d');
   canvas.width = videoWidth;
@@ -138,7 +135,7 @@ function getGoodPosture(curPoints) {
         Math.abs(expShoulderDiff[0] - curShoulderDiff[0]) > 40  || Math.abs(expShoulderDiff[1] - curShoulderDiff[1]) > 20) {
       if(color !== 'red') {
         color = 'red';
-        btn.click();
+        notificationBtn.click();
       }
       localPostures[1]++;
       break;
@@ -150,7 +147,7 @@ function getGoodPosture(curPoints) {
 }
 
 //get video element
-async function getVideo() {
+export async function getVideo() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     throw new Error(
       'Browser API navigator.mediaDevices.getUserMedia not available'
@@ -193,4 +190,3 @@ function drawPoint(ctx, y, x, r, color) {
   ctx.fill();
 }
 
-// main(net);

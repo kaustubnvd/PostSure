@@ -104,7 +104,7 @@ button:active {
     -moz-transform:rotateY(180deg); /* Firefox */
 }
 
-#btn {
+#notification-btn {
     display: none;
 }
 
