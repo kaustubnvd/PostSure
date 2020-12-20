@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="images/chair256.png" alt="PostSure" width="72" height="72">
+    <img src="static/images/chair256.png" alt="PostSure" width="72" height="72">
 </p>
 
 <h3 align="center">PostSure</h3>
