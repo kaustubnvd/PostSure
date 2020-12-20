@@ -4,18 +4,18 @@
     "description": "Analyze, monitor, and maintain your posture — all throughout the day.",
     "manifest_version": 2,
     "icons": {
-      "256": "images/chair256.png"
+      "256": "./static/images/chair256.png"
     },
     "permissions": [
       "activeTab",
       "notifications"
     ],
     "browser_action": {
-      "default_popup": "popup.html",
+      "default_popup": "./static/html/popup.html",
       "default_icon": {
-        "256": "images/chair256.png"
+        "256": "./static/images/chair256.png"
       }
     },
     "content_security_policy":"script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net/npm/@tensorflow/tfjs https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js; object-src 'self'",
-    "options_page": "options.html"
+    "options_page": "./static/html/options.html"
   }
