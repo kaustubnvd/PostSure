@@ -2,74 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>PostSure</title>
     <link rel="stylesheet" href="../css/styles.css">
   </head>
   <body>
-    <div class="sign-up ">
-      <div class="center">
-        <h1 class="title">PostSure</h1>
-      </div>
-      <div class="center">
-        <input type="email" id="email" placeholder="Email Address">
-        <small id="email-error" class="error hidden">Please enter a valid email</small>
-        <button id="email-btn">Next</button>
-      </div>
-      <div class="center">
-        <h3 class="title-little">Before you start make sure your:</h3>
-        <ol class="list-text">
-          <li>Shoulders are relaxed</li>
-          <li>Back is straight</li>
-          <li>Eyes are level with the screen</li>
-        </ol>
-      </div>
-      <div class="center">
-        <img src="../images/posture_guide.png" alt="Posture Guide" id="img-resize" width="72" height="72">
-      </div>
-    </div>
-    
-    <div class="popup hidden" id="video-mod">
-    <p align="center">
-      <img src="../images/chair256.png" alt="PostSure" width="72" height="72" />
-    </p>
-
-    <h1 align="center">PostSure</h3>
-
-    <p align="center">
-      Analyze, monitor, and maintain your posture — all throughout the day.
-    </p>
-    <h2 align="center">
-      Be sure to allow camera permissions in options beforehand.
-    </h2>
-    <video id="video" width="640" height="300" autoplay></video>
-    <div class="center">
-      <div class="loader"></div>
-    </div>
-    <canvas id="output"></canvas>
-    <div class="center">
+    <section class="auth-screen center">
+      <h1>PostSure</h1>
+      <input type="email" id="email" placeholder="Email Address">
+      <small id="email-error" class="error hidden">Please enter a valid email</small>
+      <button id="email-btn">Next</button>
+      <h3>Before you start make sure your:</h3>
+      <ol>
+        <li>Shoulders are relaxed</li>
+        <li>Back is straight</li>
+        <li>Eyes are level with the screen</li>
+      </ol>
+      <img src="../images/posture_guide.png" alt="Posture Guide" width="72" height="72">
+    </section>
+    <section class="main-screen center hidden">
+      <img src="../images/chair256.png" alt="PostSure" width="72" height="72"/>
+      <h1>PostSure</h1>
+      <p align="center"> Analyze, monitor, and maintain your posture — all throughout the day.</p>
+      <h2 align="center">Be sure to allow camera permissions in options beforehand.</h2>
+      <video id="video" width="640" height="300" autoplay></video>
+      <figure class="loading-indicator"></figure>
+      <canvas id="output"></canvas>
       <h2 class="status">❌ Not Calibrated</h2>
-    </div>
-    <div class="center">
       <button id="calibrate">Calibrate</button>
-      <button id="notification-btn">Bad Posture</button>
-    </div>
-    </div>
-    <div class = "center hidden" id = "stats-div">
-      <button id = "stats-btn">Statistics</button>
-    </div>
-    <div class="center hidden" id="min">
-      <button id="size">Minimize</button>
-    </div>
-    <div class = "stats hidden" id = "graphs" style = "margin-top: 1.5em;">
-      <div id="cur-box" class="" style="height:200px; width: 400px;">
-        <canvas id="currChart" width="100" height="50"></canvas>
+      <!-- Hidden button to trigger notification events -->
+      <button id="notification-btn" class="hidden">Bad Posture</button>
+    </section>
+    <section class="nav-btns center hidden">
+      <button id="stats-btn">Statistics</button>
+      <button id="minmax-btn">Minimize</button>
+    </section>
+    <section class="stats-screen hidden">
+      <div class="chart-container">
+        <canvas id="session-chart" width="100" height="50"></canvas>
       </div>
-      <div id="char-box" class="" style="height:200px; width: 400px;">
-        <canvas id="lifeChart" width="100" height="50"></canvas>
+      <div class="chart-container">
+        <canvas id="lifetime-chart" width="100" height="50"></canvas>
       </div>
-    </div>
+    </section>
     <script src="../../dist/bundle.js"></script>
   </body>
-
 </html>

@@ -1,58 +1,52 @@
 
-import { getCharts, pushStats } from './stats.js';
-import { getNet, getVideo, detectPose, globalPostures, percentages } from './model.js';
+import { renderCharts } from './stats.js';
+import { getNet, getVideo, detectPose, pushStatistics } from './model.js';
 
-//getting DOM elements to manipulate
-const popupEle = document.getElementById('video-mod');
-const signUp = document.querySelector('.sign-up');
-const statsDiv = document.getElementById('stats-div');
-const minimize = document.getElementById('min');
-const graphs = document.getElementById('graphs');
-const popup = document.querySelector('.popup');
-const minmax = document.getElementById('size');
-const statsBtn = document.getElementById('stats-btn');
+const authScreen  = document.querySelector('.auth-screen');
+const mainScreen  = document.querySelector('.main-screen');
+const statsScreen = document.querySelector('.stats-screen');
+const navigationBtns = document.querySelector('.nav-btns'),
+        statsBtn     = document.getElementById('stats-btn'),
+        minmaxBtn    = document.getElementById('minmax-btn');
 
-export async function main() {
-  //Main Function started -> unhide video feed/buttons
-  signUp.classList.add('hidden');
-  popupEle.classList.remove('hidden');
-  minimize.classList.remove('hidden');
-  statsDiv.classList.remove('hidden');
-  let net = await getNet(); //load posenet
-  let vidElement = await getVideo();
-  detectPose(vidElement, net);
-  //Push the percentages to firebase 
-  setInterval(() => {
-    if((globalPostures[1] + globalPostures[0]) !== 0) {
-      pushStats(percentages, 100*(globalPostures[0]/(globalPostures[1] + globalPostures[0])));
-    }}, 30000);
+export function main() {
+  renderMainUI();
+  Promise.all([getNet(), getVideo()]).then(([net, vidElement]) => {
+    detectPose(vidElement, net);
+    const seconds = 1000;
+    const INTERVAL = 30 * seconds;                        // 30 sec
+    setInterval(() => pushStatistics(), INTERVAL); // Push the percentages to firebase
+  });
 }
 
-
-
-// function to reset user's lifetime array of data (dunno if it's right but attempted it)
-async function reset() {
-  docData.lifetime = [];
-  await db.collection("users").doc(`${email}`).update({
-    "lifetime": docData.lifetime
-    // "lifetime": firebase.firestore.FieldValue.arrayUnion(total),
-  });  
+function renderMainUI() {
+  authScreen.classList.add('hidden');
+  mainScreen.classList.remove('hidden');
+  navigationBtns.classList.remove('hidden');
 }
 
-//Switches to "statistics" screen -> hiding/unhiding DOM Elements
-statsBtn.addEventListener('click', function() {
-  popupEle.classList.toggle('hidden');
-  minimize.classList.toggle('hidden');
-  graphs.classList.toggle('hidden');
+statsBtn.addEventListener('click', () => {
+  mainScreen.classList.toggle('hidden');
+  statsScreen.classList.toggle('hidden');
+  minmaxBtn.classList.toggle('hidden');
   statsBtn.innerText = statsBtn.innerText === "Statistics" ? "Return": "Statistics";
-  getCharts();
+  renderCharts();
 });
 
-minmax.addEventListener('click', (e) => {
-  popup.classList.toggle('hidden');
+minmaxBtn.addEventListener('click', () => {
+  mainScreen.classList.toggle('hidden');
   statsBtn.classList.toggle('hidden');
-  minmax.innerText = minmax.innerText === 'Minimize' ? 'Maximize' : 'Minimize';
+  minmaxBtn.innerText = minmaxBtn.innerText === 'Minimize' ? 'Maximize' : 'Minimize';
 });
+
+// // function to reset user's lifetime array of data (dunno if it's right but attempted it)
+// async function reset() {
+//   docData.lifetime = [];
+//   await db.collection("users").doc(`${email}`).update({
+//     "lifetime": docData.lifetime
+//     // "lifetime": firebase.firestore.FieldValue.arrayUnion(total),
+//   });  
+// }
 
 // code for adding reset button for lifetime stats (once again not sure if I did it right but attempted it)
 // resetBtn.addEventListener('click', function() {
@@ -64,4 +58,3 @@ minmax.addEventListener('click', (e) => {
 // });
 
 
-//main(net);

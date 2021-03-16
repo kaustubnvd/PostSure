@@ -30,13 +30,17 @@ li {
   padding: 5px 0;
 }
 
-.title {
+.auth-screen h1 {
   font-weight: 750;
   font-size: 1.75rem;
   color: #0663a1;
 }
 
-.title-little {
+.auth-screen input {
+  display: block;
+}
+
+.auth-screen h3 {
   font-weight: 600;
   font-size: 1.05rem;
   margin: 10px 0 0 0;
@@ -44,19 +48,17 @@ li {
   text-align: center;
 }
 
-#img-resize {
+.auth-screen ol {
+  font-size: .85rem;
+}
+
+.auth-screen img {
   width: 70%;
   height: auto;
 }
 
 
-.list-text {
-  font-size: .85rem;
-}
 
-#email {
-  display: block;
-}
 
 #video{
     transform: rotateY(180deg);
@@ -77,7 +79,7 @@ button:active {
   background-color: #0663a1;
 }
 
-.loader {
+.loading-indicator {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
   border-radius: 50%;
@@ -104,12 +106,17 @@ button:active {
     -moz-transform:rotateY(180deg); /* Firefox */
 }
 
-#notification-btn {
-    display: none;
+.stats-screen {
+  margin-top: 1.5em;
+}
+
+.stats-screen .chart-container {
+  height: 200px; 
+  width: 400px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .error {

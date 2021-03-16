@@ -1,27 +1,28 @@
 import * as posenet from '@tensorflow-models/posenet';
 import '@tensorflow/tfjs';
+import { pushStats } from './stats.js';
 
 //Global Constants for DOM elements and sending data
 const videoHeight = 480; //360
 const videoWidth = 640; //480
 
 var notificationBtn = document.getElementById('notification-btn');
-const loader = document.querySelector('.loader');
+const loader = document.querySelector('.loading-indicator');
 
-const calibrate = document.getElementById('calibrate');
+const calibrateBtn = document.getElementById('calibrate');
 const calibratedStatus = document.querySelector('.status');
 let isCalibrated = false;
 
 const initPosturePoints = [];
-export let percentages = [];
+let percentages = [];
 let localPostures = [0, 0]; //goodPosture is index 0, badPosture is index 1
-export let globalPostures = [0, 0]; //
+let globalPostures = [0, 0]; //
 let color = 'green';
 
 
 
 //Event Listeners for buttons
-calibrate.addEventListener('click', (event) => {
+calibrateBtn.addEventListener('click', (event) => {
   isCalibrated = true;
   calibratedStatus.innerText = 'Calibrating...';
 });
@@ -31,7 +32,7 @@ notificationBtn.addEventListener('click', function () {
     'badPosture',
     {
       type: 'basic',
-      iconUrl: '/images/chair256.png',
+      iconUrl: '/static/images/chair256.png',
       title: 'Fix your posture!',
       message: 'Looks like you need to re-adjust your posture.',
     },
@@ -103,6 +104,7 @@ function handleFrame(pose, counter, curPoints) {
       if (counter == 51) {
         //Target posture generated -> added to firebase for further analysis
         calibratedStatus.innerText = '✅ Calibrated';
+        calibrateBtn.classList.add('hidden');
         for (let i = 0; i < curPoints.length; i++) {
           curPoints[i].x /= 50;
           curPoints[i].y /= 50;
@@ -169,6 +171,13 @@ export async function getVideo() {
   });
   loadedVideo.play();
   return loadedVideo;
+}
+
+export function pushStatistics() {
+  if (globalPostures[1] + globalPostures[0] !== 0) {
+    const percentage = 100 * (globalPostures[0] / (globalPostures[1] + globalPostures[0]));
+    pushStats(percentages, percentage);
+  }
 }
 
 //draw points
